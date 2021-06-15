@@ -16,7 +16,15 @@ const myConsole = new Console(logs, errors)
 // --- gzip compressed
 
 const compressed = fs.createWriteStream('./text.txt.gz')
-stream.pipe(gzip).pipe(compressed)
+
+console.time('gzip-time');
+
+stream.pipe(gzip).pipe(compressed).on('close', function(){
+
+    console.timeEnd('gzip-time');
+    //counts time from console.time('gzip') to console.timeEnd('gzip');
+    
+})
 
 // --- 
 
